@@ -10,6 +10,33 @@ and no per-token cost.
 
 ---
 
+## Demo
+
+![CLI chatbot demo](assets/demo.png)
+
+*The bot maintains context across turns — note how it remembers the name from an
+earlier message.*
+
+---
+
+## How it works (flow)
+
+```mermaid
+graph LR
+    A[User input] --> B[Append to history]
+    B --> C[Send full history to model]
+    C --> D[Stream reply]
+    D --> E[Save reply to history]
+    E -.->|next turn| A
+```
+
+Each turn appends the user's message to a running history list and sends the **entire
+list** to the model. Because the model is stateless, this resending is what creates
+"memory." The reply streams back in pieces, which are printed live and concatenated
+into the full text, then appended back to the history for the next turn.
+
+---
+
 ## What it demonstrates
 
 - **Messages & roles** — a conversation is a list of `system` / `user` / `assistant`
@@ -48,7 +75,7 @@ and no per-token cost.
 
 ```bash
 # clone and enter the project
-git clone https://github.com/golamrasul97/01-cli-chatbot.git
+git clone https://github.com/YOUR-USERNAME/cli-chatbot.git
 cd cli-chatbot
 
 # create and activate a virtual environment
@@ -86,5 +113,5 @@ supply a real `api_key`, and set `MODEL` to a hosted model name.
 
 ---
 
-*Part of my [AI Engineering Roadmap](https://github.com/golamrasul97/ai-engineering-roadmap) — a build-in-public series pairing each concept
+*Part of my [AI Engineering Roadmap](https://golamrasul97.github.io/ai-engineering-roadmap/) — a build-in-public series pairing each concept
 with a project you can build yourself.*
